@@ -13,6 +13,10 @@ export const useFormatStore = defineStore('format', {
 
     convertType: '',
 
+    //inner loading
+    visible: false,
+    showSimulatedReturnData: false
+
   }),
 
   getters: {
@@ -125,6 +129,8 @@ export const useFormatStore = defineStore('format', {
       const uniqueElementsArray1 = this.entriesCls.filter(element => !cuentaExt.includes(element));
       const uniqueElementsArray2 = cuentaExt.filter(element => !this.entriesCls.includes(element));
       this.outputNoCoincidences = [...uniqueElementsArray1, ...uniqueElementsArray2];
+
+
 
       /*       console.warn("Coincidencias", this.outputCoincidences)
             console.log("No coincidencias", this.outputNoCoincidences)

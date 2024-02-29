@@ -1,5 +1,5 @@
 <template>
-  <div class="q-pa-md">
+  <div class="q-pa-md q-gutter-md relative-position">
     <span class="text-yellow-9 text-h6 q-ma-md"
       >Coincidences: {{ format.outputCoincidences.length }}</span
     >
@@ -26,59 +26,76 @@
       class="bg-grey-9 text-white rounded-borders"
       style="height: 500px; max-width: 600px"
     >
-      <q-list
-        dark
-        separator
-        bordered
-        class="rounded-borders"
-        style="max-width: 600px"
+      <transition
+        appear
+        enter-active-class="animated fadeIn"
+        leave-active-class="animated fadeOut"
       >
-        <q-badge
-          class="fixed-center text-white text-h6 shadow-10"
-          v-if="format.outputCoincidences.length == 0"
-          color="red-14"
-        >
-          {{ "No coincidences" }}
-        </q-badge>
-        <q-item
-          v-for="(account, index) in format.outputCoincidences"
-          :key="index"
-          class=""
-        >
-          <q-item-section avatar>
-            <q-avatar color="primary" text-color="white" size="30px">
-              {{ index + 1 }}
-            </q-avatar>
-          </q-item-section>
+        <div v-show="format.showSimulatedReturnData">
+          <q-list
+            dark
+            separator
+            bordered
+            class="rounded-borders"
+            style="max-width: 600px"
+          >
+            <q-badge
+              class="fixed-center text-white text-h6 shadow-10"
+              v-if="format.outputCoincidences.length == 0"
+              color="red-14"
+            >
+              {{ "No coincidences" }}
+            </q-badge>
+            <q-item
+              v-for="(account, index) in format.outputCoincidences"
+              :key="index"
+              class=""
+            >
+              <q-item-section avatar>
+                <q-avatar color="primary" text-color="white" size="30px">
+                  {{ index + 1 }}
+                </q-avatar>
+              </q-item-section>
 
-          <q-item-section top>
-            <q-item-label>{{ account.empresa }}</q-item-label>
-            <q-item-label caption lines="1">
-              {{ account.direccion }}
-            </q-item-label>
-            <q-item-label class="text-yellow" caption>{{
-              "Txa: " + account.cuentaTxa + " - " + "Gts:" + account.cuentaGts
-            }}</q-item-label>
-          </q-item-section>
+              <q-item-section top>
+                <q-item-label>{{ account.empresa }}</q-item-label>
+                <q-item-label caption lines="1">
+                  {{ account.direccion }}
+                </q-item-label>
+                <q-item-label class="text-yellow" caption>{{
+                  "Txa: " +
+                  account.cuentaTxa +
+                  " - " +
+                  "Gts:" +
+                  account.cuentaGts
+                }}</q-item-label>
+              </q-item-section>
 
-          <q-item-section class="q-mt-xs" top side>
-            <div class="text-primary q-gutter-xs">
-              <q-btn
-                class=""
-                size="12px"
-                flat
-                dense
-                round
-                @click="copyToClipboard(account)"
-                icon="content_copy"
-              />
-            </div>
-          </q-item-section>
-        </q-item>
-      </q-list>
+              <q-item-section class="q-mt-xs" top side>
+                <div class="text-primary q-gutter-xs">
+                  <q-btn
+                    class=""
+                    size="12px"
+                    flat
+                    dense
+                    round
+                    @click="copyToClipboard(account)"
+                    icon="content_copy"
+                  />
+                </div>
+              </q-item-section>
+            </q-item>
+          </q-list>
+        </div>
+      </transition>
     </q-scroll-area>
 
+    <q-inner-loading :showing="format.visible">
+      <q-spinner-gears size="50px" color="primary" />
+    </q-inner-loading>
+
     <q-separator class="q-my-md" dark inset />
+
     <div class="text-h6 text-red q-ma-md">
       No Coincidences: {{ format.outputNoCoincidences.length }}
     </div>

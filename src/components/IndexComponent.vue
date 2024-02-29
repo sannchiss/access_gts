@@ -7,7 +7,8 @@
       @click="
         convert.getEntry(entry),
           (convert.outputCoincidences = []),
-          (convert.outputNoCoincidences = [])
+          (convert.outputNoCoincidences = []),
+          showResponse()
       "
     />
   </div>
@@ -100,6 +101,15 @@ export default {
 
     return {
       convert: format,
+      showResponse() {
+        this.convert.visible = true;
+        this.convert.showSimulatedReturnData = false;
+
+        setTimeout(() => {
+          this.convert.visible = false;
+          this.convert.showSimulatedReturnData = true;
+        }, 2000);
+      },
     };
   },
 
