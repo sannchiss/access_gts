@@ -1,9 +1,10 @@
 <template>
   <div class="row flex-center">
     <q-btn
+      rounded
+      size="lg"
       color="primary"
       icon="sync_alt"
-      label="Convert / Entry"
       @click="
         convert.getEntry(entry),
           (convert.outputCoincidences = []),
