@@ -50,6 +50,8 @@
               v-for="(account, index) in format.outputCoincidences"
               :key="index"
               class=""
+              clickable
+              @click="copyToClipboard(account)"
             >
               <q-item-section avatar>
                 <q-avatar color="primary" text-color="white" size="30px">
